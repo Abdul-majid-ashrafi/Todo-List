@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span{color: #000000;
+            margin: 23px; }
+        form{color: brown;
+            text-align: center;}
+
+    </style>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('todoCtrl', function($scope) {
+
+
+            $scope.todoList = [{todoText:'Press Remove Button', make:true}];
+            $scope.todoAdd = function() {
+                $scope.todoList.push({todoText:$scope.todoInput, make:false});
+                $scope.todoInput = "" };
+
+            $scope.remov = function() {
+
+                var oldList = $scope.todoList;
+                $scope.todoList = [];
+               angular.forEach(oldList, function(x) {
+                    if (!x.make) $scope.todoList.push(x)})}});
+
+    </script>
+</head>
+
+
+<body ng-app="myApp" ng-controller="todoCtrl" style="background-color:palegoldenrod">
+
+
+<form ng-submit="todoAdd()">
+    <h2>Todo List! Enter Something An Input Bar  </h2>
+    <input type="text" ng-model="todoInput" size="40" placeholder="Add New">
+    <input type="submit" value="Add New">
+</form>
+<br><hr/>
+<div ng-repeat="x in todoList">
+    <br/><input type="checkbox" ng-model="x.make ">
+    <input type="text"ng-model="x.todoText" >
+    <br/><span ng-bind="x.todoText | uppercase"></span>
+</div> <br/>
+<p style="margin-left: 50px"><button ng-click="remov()">Remove marked</button></p>
+
+
+
+</body>
+</html>
