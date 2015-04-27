@@ -8,9 +8,16 @@
             text-align: center;}
 
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+<!-- Angular Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+<!-- Angular Material Javascript now available via Google CDN; version 0.8 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
     <script>
-        var app = angular.module('myApp', []);
+        var app = angular.module('myApp', ['ngMaterial']);
         app.controller('todoCtrl', function($scope) {
 
 
@@ -23,30 +30,35 @@
 
                 var oldList = $scope.todoList;
                 $scope.todoList = [];
-               angular.forEach(oldList, function(x) {
+                angular.forEach(oldList, function(x) {
                     if (!x.make) $scope.todoList.push(x)})}});
 
     </script>
 </head>
 
-
-<body ng-app="myApp" ng-controller="todoCtrl" style="background-color:palegoldenrod">
-
+<body ng-app="myApp" ng-controller="todoCtrl"style="background-color:#f5f5f5">
 
 <form ng-submit="todoAdd()">
     <h2>Todo List! Enter Something An Input Bar  </h2>
     <input type="text" ng-model="todoInput" size="40" placeholder="Add New">
-    <input type="submit" value="Add New">
+    <md-button class="md-raised">Add List</md-button>
+
 </form>
 <br><hr/>
 <div ng-repeat="x in todoList">
-    <br/><input type="checkbox" ng-model="x.make ">
-    <input type="text"ng-model="x.todoText" >
-    <br/><span ng-bind="x.todoText | uppercase"></span>
+    <br/>
+    <md-checkbox ng-model="x.make"></md-checkbox>
+    <div layout layout-sm="column">
+    <md-input-container flex="30">
+        <input type="text"ng-model="x.todoText" >
+    </md-input-container>
+        <span ng-bind="x.todoText | uppercase"></span>
+    </div>
 </div> <br/>
-<p style="margin-left: 50px"><button ng-click="remov()">Remove marked</button></p>
 
-
+<p style="margin-left: 50px">
+    <md-button class="md-shadow-bottom-z-1" ng-click="remov()">Remove Iteam</md-button>
+</p>
 
 </body>
 </html>
